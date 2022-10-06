@@ -6,7 +6,7 @@ export class GameMap extends AcGameObject {
         super();
 
         this.root = root;
-        this.$canvas = $('<canvas width="100%" height="100%" tabindex=0></canvas>');
+        this.$canvas = $('<canvas width="1280px" height="720px" tabindex=0></canvas>');
         this.ctx = this.$canvas[0].getContext('2d');
         this.root.$kof.append(this.$canvas);
         this.$canvas.focus();
