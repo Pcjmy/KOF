@@ -2,4 +2,4 @@
 
 拳皇
 
-![](assets/background.png)
+![](assets/KOF.png)
