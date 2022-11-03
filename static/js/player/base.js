@@ -61,15 +61,15 @@ export class Player extends AcGameObject {
     update_control() {
         let w, a, d, space;
         if (this.id === 0) {
-            w = this.pressed_keys.has('w');
-            a = this.pressed_keys.has('a');
-            d = this.pressed_keys.has('d');
-            space = this.pressed_keys.has(' ');
+            w = this.pressed_keys.has('w'); //跳跃
+            a = this.pressed_keys.has('a'); //左移
+            d = this.pressed_keys.has('d'); //右移
+            space = this.pressed_keys.has(' '); //攻击
         } else {
-            w = this.pressed_keys.has('ArrowUp');
-            a = this.pressed_keys.has('ArrowLeft');
-            d = this.pressed_keys.has('ArrowRight');
-            space = this.pressed_keys.has('Enter');
+            w = this.pressed_keys.has('ArrowUp');  //跳跃
+            a = this.pressed_keys.has('ArrowLeft'); //左移
+            d = this.pressed_keys.has('ArrowRight'); //右移
+            space = this.pressed_keys.has('Enter'); //攻击
         }
 
         if (this.status === 0 || this.status === 1) {

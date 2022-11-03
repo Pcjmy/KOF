@@ -1,7 +1,6 @@
 export class Controller {
     constructor($canvas) {
         this.$canvas = $canvas;
-
         this.pressed_keys = new Set();
         this.start();
     }
