@@ -69,7 +69,7 @@ export class Player extends AcGameObject {
             w = this.pressed_keys.has('ArrowUp');  //跳跃
             a = this.pressed_keys.has('ArrowLeft'); //左移
             d = this.pressed_keys.has('ArrowRight'); //右移
-            space = this.pressed_keys.has('Enter'); //攻击
+            space = this.pressed_keys.has('End'); //攻击
         }
 
         if (this.status === 0 || this.status === 1) {
