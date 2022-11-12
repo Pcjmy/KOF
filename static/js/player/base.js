@@ -12,20 +12,23 @@ export class Player extends AcGameObject {
         this.height = info.height;
         this.color = info.color;
 
+        // 面朝方向, 1: 右, 0: 左
         this.direction = 1;
-
+        // 水平方向速度
         this.vx = 0;
+        // 竖直方向速度
         this.vy = 0;
-
-        this.speedx = 400;  // 水平速度
-        this.speedy = -1000;  // 跳起的初始速度
-
+        // 水平移动速度
+        this.speedx = 400;
+        // 跳起的初始速度
+        this.speedy = -1000;
+        // 重力加速度
         this.gravity = 50;
 
         this.ctx = this.root.game_map.ctx;
         this.pressed_keys = this.root.game_map.controller.pressed_keys;
-
-        this.status = 3;  // 0: idle, 1: 向前，2：向后，3：跳跃，4：攻击，5：被打，6：死亡
+        // 0: idle, 1: 向前，2：向后，3：跳跃，4：攻击，5：被打，6：死亡
+        this.status = 3;
         this.animations = new Map();
         this.frame_current_cnt = 0;
 
@@ -40,10 +43,10 @@ export class Player extends AcGameObject {
 
     update_move() {
         this.vy += this.gravity;
-
         this.x += this.vx * this.timedelta / 1000;
         this.y += this.vy * this.timedelta / 1000;
 
+        // 平地竖直方向速度减为0
         if (this.y > 450) {
             this.y = 450;
             this.vy = 0;

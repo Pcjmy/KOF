@@ -15,4 +15,8 @@ export class Controller {
             outer.pressed_keys.delete(e.key);
         });
     }
+
+    ban() { //禁用键盘
+        this.pressed_keys.clear();
+    }
 }
