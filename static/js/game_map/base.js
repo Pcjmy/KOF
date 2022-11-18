@@ -30,16 +30,17 @@ export class GameMap extends AcGameObject {
         this.time_left -= this.timedelta;
         if (this.time_left < 0) {
             this.time_left = 0;
-            let [a, b] = this.root.players;
-            a.vx = b.vx = 0;
+            let [player1, player2] = this.root.players;
+            player1.vx = player2.vx = 0;
         }
 
         this.$timer.text(parseInt(this.time_left / 1000));
 
         this.render();
-        let [a, b] = this.root.players;
-        if(a.status===6||b.status===6||this.time_left===0) {
+        let [player1, player2] = this.root.players;
+        if(player1.status===6||player2.status===6||this.time_left===0) {
             this.draw();
+            this.time_left=0;
             this.controller.ban();
         }
     }
@@ -51,10 +52,8 @@ export class GameMap extends AcGameObject {
     draw() {
         this.root.$kof.css({
             background: "#000",
-            opacity: 0.5,
-            zIndex: -1,
+            opacity: 0.8,
         });
-        // this.ctx.Zindex=0;
         this.ctx.font = "70px serif";
         this.ctx.fillStyle = "red";
         this.ctx.fillText('GAME OVER',480,270);
