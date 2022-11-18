@@ -3,7 +3,6 @@ let AC_GAME_OBJECTS = [];
 class AcGameObject {
     constructor() {
         AC_GAME_OBJECTS.push(this);
-
         this.timedelta = 0;
         this.has_call_start = false;
     }
@@ -12,7 +11,7 @@ class AcGameObject {
 
     }
 
-    update() {  // 每一帧执行一次（除了第一帧以外）
+    update() {  // 每一帧执行一次(除了第一帧以外)
 
     }
 
@@ -39,8 +38,8 @@ let AC_GAME_OBJECTS_FRAME = (timestamp) => {
             obj.update();
         }
     }
-
     last_timestamp = timestamp;
+    // 请求动画帧
     requestAnimationFrame(AC_GAME_OBJECTS_FRAME);
 }
 

@@ -49,6 +49,12 @@ export class GameMap extends AcGameObject {
     }
 
     draw() {
+        this.root.$kof.css({
+            background: "#000",
+            opacity: 0.5,
+            zIndex: -1,
+        });
+        // this.ctx.Zindex=0;
         this.ctx.font = "70px serif";
         this.ctx.fillStyle = "red";
         this.ctx.fillText('GAME OVER',480,270);
