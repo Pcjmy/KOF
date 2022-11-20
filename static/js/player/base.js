@@ -31,10 +31,12 @@ export class Player extends AcGameObject {
         this.status = 3;
         this.animations = new Map();
         this.frame_current_cnt = 0;
-
+        // 生命值
         this.hp = 100;
         this.$hp = this.root.$kof.find(`.kof-head-hp-${this.id}>div`);
         this.$hp_div = this.$hp.find('div');
+        // 攻击力
+        this.atk = 18;
     }
 
     start() {
@@ -121,7 +123,7 @@ export class Player extends AcGameObject {
         this.status = 5;
         this.frame_current_cnt = 0;
 
-        this.hp = Math.max(this.hp - 20, 0);
+        this.hp = Math.max(this.hp - this.atk, 0);
 
         this.$hp_div.animate({
             width: this.$hp.parent().width() * this.hp / 100

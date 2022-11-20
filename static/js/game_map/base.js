@@ -39,10 +39,8 @@ export class GameMap extends AcGameObject {
         this.render();
         let [player1, player2] = this.root.players;
         if(player1.status===6||player2.status===6||this.time_left===0) {
-            setTimeout(()=>{
-                this.time_left=0;
-                this.controller.ban();
-            }, 800)
+            this.time_left=0;
+            this.controller.ban();
             this.draw();
         }
     }
