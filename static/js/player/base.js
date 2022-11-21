@@ -27,9 +27,10 @@ export class Player extends AcGameObject {
 
         this.ctx = this.root.game_map.ctx;
         this.pressed_keys = this.root.game_map.controller.pressed_keys;
-        // 0: idle, 1: 向前，2：向后，3：跳跃，4：攻击，5：被打，6：死亡
+        // 0: idle, 1: 向前, 2：向后/防御, 3：跳跃, 4：攻击, 5：被打, 6：死亡
         this.status = 3;
         this.animations = new Map();
+        // 帧计数器
         this.frame_current_cnt = 0;
         // 生命值
         this.hp = 100;
@@ -120,7 +121,9 @@ export class Player extends AcGameObject {
 
     is_attack() { // 攻击后的逻辑
         if (this.status === 6) return ;
-        if (this.status === 2) {
+        // 防御状态
+        if (this.direction * this.vx < 0) {
+            // 防御状态下被攻击, 有一定的伤害减免
             this.hp = Math.max(this.hp - (this.atk - 6), 0);
         } else {
             // 被打状态
@@ -194,7 +197,6 @@ export class Player extends AcGameObject {
         this.update_move();
         this.update_direction();
         this.update_attack();
-
         this.render();
     }
 
@@ -211,26 +213,29 @@ export class Player extends AcGameObject {
     }
 
     render() {
-        this.hitbox();
+        // 当前状态
         let status = this.status;
 
-        if (this.status === 1 && this.direction * this.vx < 0) status = 2;
+        if (this.status === 1 && this.direction * this.vx < 0) {
+            status = 2;
+        }
 
         let obj = this.animations.get(status);
         if (obj && obj.loaded) {
             if (this.direction > 0) {
+                // 循环渲染
                 let k = parseInt(this.frame_current_cnt / obj.frame_rate) % obj.frame_cnt;
+                // 当前显示的图片
                 let image = obj.gif.frames[k].image;
+                // canvas渲染图片
                 this.ctx.drawImage(image, this.x, this.y + obj.offset_y, image.width * obj.scale, image.height * obj.scale);
             } else {
                 this.ctx.save();
                 this.ctx.scale(-1, 1);
                 this.ctx.translate(-this.root.game_map.$canvas.width(), 0);
-
                 let k = parseInt(this.frame_current_cnt / obj.frame_rate) % obj.frame_cnt;
                 let image = obj.gif.frames[k].image;
                 this.ctx.drawImage(image, this.root.game_map.$canvas.width() - this.x - this.width, this.y + obj.offset_y, image.width * obj.scale, image.height * obj.scale);
-
                 this.ctx.restore();
             }
         }
