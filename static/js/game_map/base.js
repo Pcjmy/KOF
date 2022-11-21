@@ -18,7 +18,7 @@ export class GameMap extends AcGameObject {
             <div class="kof-head-hp-1"><div><div></div></div></div>
         </div>`));
 
-        this.time_left = 90000;  // 单局比赛时间，单位：毫秒
+        this.time_left = 90000;  // 单局比赛时间, 单位：毫秒
         this.$timer = this.root.$kof.find(".kof-head-timer");
     }
 
@@ -27,13 +27,16 @@ export class GameMap extends AcGameObject {
     }
 
     update() {
+        // let [role1, role2] = this.root.players;
+        // console.log(role1.status, role2.status);
+        // 更新剩余时间
         this.time_left -= this.timedelta;
         if (this.time_left < 0) {
             this.time_left = 0;
             let [player1, player2] = this.root.players;
             player1.vx = player2.vx = 0;
         }
-
+        // 显示时间取整数部分
         this.$timer.text(parseInt(this.time_left / 1000));
 
         this.render();

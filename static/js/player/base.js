@@ -33,6 +33,7 @@ export class Player extends AcGameObject {
         this.frame_current_cnt = 0;
         // 生命值
         this.hp = 100;
+        // 血槽
         this.$hp = this.root.$kof.find(`.kof-head-hp-${this.id}>div`);
         this.$hp_div = this.$hp.find('div');
         // 攻击力
@@ -117,14 +118,19 @@ export class Player extends AcGameObject {
         }
     }
 
-    is_attack() {
-        if (this.status === 6) return;
-
-        this.status = 5;
-        this.frame_current_cnt = 0;
-
-        this.hp = Math.max(this.hp - this.atk, 0);
-
+    is_attack() { // 攻击后的逻辑
+        if (this.status === 6) return ;
+        if (this.status === 2) {
+            this.hp = Math.max(this.hp - (this.atk - 6), 0);
+        } else {
+            // 被打状态
+            this.status = 5;
+            // 从第0帧开始渲染
+            this.frame_current_cnt = 0;
+            // 更新生命值
+            this.hp = Math.max(this.hp - this.atk, 0);
+        }
+        // 更新血槽长度
         this.$hp_div.animate({
             width: this.$hp.parent().width() * this.hp / 100
         }, 300);
@@ -139,42 +145,45 @@ export class Player extends AcGameObject {
         }
     }
 
-    is_collision(r1, r2) {
-        if (Math.max(r1.x1, r2.x1) > Math.min(r1.x2, r2.x2))
+    is_collision(rec1, rec2) { // 碰撞检测(判断两个矩形是否有交集)
+        if (Math.max(rec1.x1, rec2.x1) > Math.min(rec1.x2, rec2.x2)) {
             return false;
-        if (Math.max(r1.y1, r2.y1) > Math.min(r1.y2, r2.y2))
+        } else if (Math.max(rec1.y1, rec2.y1) > Math.min(rec1.y2, rec2.y2)) {
             return false;
+        }
         return true;
     }
 
     update_attack() {
         if (this.status === 4 && this.frame_current_cnt === 18) {
             let me = this, you = this.root.players[1 - this.id];
-            let r1;
+            // 我方对应的矩形
+            let rec1;
+            // 正方向(右)
             if (this.direction > 0) {
-                r1 = {
+                rec1 = {
                     x1: me.x + 120,
                     y1: me.y + 40,
                     x2: me.x + 120 + 100,
                     y2: me.y + 40 + 20,
                 };
             } else {
-                r1 = {
+                rec1 = {
                     x1: me.x + me.width - 120 - 100,
                     y1: me.y + 40,
                     x2: me.x + me.width - 120 - 100 + 100,
                     y2: me.y + 40 + 20,
                 };
             }
-
-            let r2 = {
+            // 对手对应的矩形
+            let rec2 = {
                 x1: you.x,
                 y1: you.y,
                 x2: you.x + you.width,
                 y2: you.y + you.height
             };
 
-            if (this.is_collision(r1, r2)) {
+            if (this.is_collision(rec1, rec2)) {
                 you.is_attack();
             }
         }
@@ -189,7 +198,20 @@ export class Player extends AcGameObject {
         this.render();
     }
 
+    hitbox() { // 碰撞盒子, 用于调试
+        this.ctx.fillStyle = 'blue';
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        if (this.direction>0) {
+            this.ctx.fillStyle='red';
+            this.ctx.fillRect(this.x+120,this.y+40,100,20);
+        } else {
+            this.ctx.fillStyle='red';
+            this.ctx.fillRect(this.x+this.width-120-100,this.y+40,100,20);
+        }
+    }
+
     render() {
+        this.hitbox();
         let status = this.status;
 
         if (this.status === 1 && this.direction * this.vx < 0) status = 2;
