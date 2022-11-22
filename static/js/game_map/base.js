@@ -27,8 +27,6 @@ export class GameMap extends AcGameObject {
     }
 
     update() {
-        // let [role1, role2] = this.root.players;
-        // console.log(role1.status, role2.status);
         // 更新剩余时间
         this.time_left -= this.timedelta;
         if (this.time_left < 0) {

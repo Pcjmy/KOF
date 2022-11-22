@@ -193,9 +193,19 @@ export class Player extends AcGameObject {
     }
 
     update() {
+        // 角色死亡后一段时间会从界面上消失
+        if (this.hp<=0) {
+            setTimeout(() => {
+                this.destroy();
+            }, 3000);
+        }
+        // 更新状态
         this.update_control();
+        // 更新位置
         this.update_move();
+        // 更新方向
         this.update_direction();
+        // 更新血量
         this.update_attack();
         this.render();
     }
@@ -230,6 +240,7 @@ export class Player extends AcGameObject {
                 // canvas渲染图片
                 this.ctx.drawImage(image, this.x, this.y + obj.offset_y, image.width * obj.scale, image.height * obj.scale);
             } else {
+                // 方向调整
                 this.ctx.save();
                 this.ctx.scale(-1, 1);
                 this.ctx.translate(-this.root.game_map.$canvas.width(), 0);

@@ -16,9 +16,9 @@ class AcGameObject {
     }
 
     destroy() {  // 删除当前对象
-        for (let i in AC_GAME_OBJECTS) {
-            if (AC_GAME_OBJECTS[i] === this) {
-                AC_GAME_OBJECTS.splice(i, 1);
+        for (let item in AC_GAME_OBJECTS) {
+            if (AC_GAME_OBJECTS[item] === this) {
+                AC_GAME_OBJECTS.splice(item, 1);
                 break;
             }
         }
@@ -30,10 +30,10 @@ let last_timestamp;
 
 let AC_GAME_OBJECTS_FRAME = (timestamp) => {
     for (let obj of AC_GAME_OBJECTS) {
-        if (!obj.has_call_start) {
+        if (!obj.has_call_start) { // 如果start函数未执行就执行start函数
             obj.start();
             obj.has_call_start = true;
-        } else {
+        } else { // 如果执行过start函数就执行update函数
             obj.timedelta = timestamp - last_timestamp;
             obj.update();
         }
