@@ -2,13 +2,15 @@ import babel from 'rollup-plugin-babel'
 import resolve from 'rollup-plugin-node-resolve'
 
 export default {
-    entry: 'static/js/base.js',
-    format: 'umd',
+    input: 'static/js/base.js',
+    output: {
+        file: 'bundle.js',
+        format: 'iife'
+    },
     plugins: [
         resolve(),
         babel({
             exclude: 'node_modules/**'
         })
     ],
-    dest: 'build'
 }
