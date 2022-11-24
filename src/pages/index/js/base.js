@@ -29,6 +29,8 @@ class KOF {
     }
 }
 
+let kof = new KOF('kof');
+
 export {
     KOF
 }
