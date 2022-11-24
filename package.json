@@ -1,26 +1,25 @@
 {
-  "name": "kof",
+  "name": "mall",
   "version": "1.0.0",
-  "description": "拳皇",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "rollup -c rollup.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Pcjmy/KOF.git"
+    "start": "webpack-dev-server --open chrome"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Pcjmy/KOF/issues"
-  },
-  "homepage": "https://github.com/Pcjmy/KOF#readme",
   "devDependencies": {
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-latest": "^6.24.1",
-    "rollup": "^2.79.1",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "art-template-loader": "^1.4.3",
+    "css-loader": "^4.2.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "art-template": "^4.13.2"
   }
 }
