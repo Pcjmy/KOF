@@ -39,10 +39,13 @@ export class GameMap extends AcGameObject {
 
         this.render();
         let [player1, player2] = this.root.players;
-        if(player1.status===6||player2.status===6||this.time_left===0) {
+        if (player1.status===6||player2.status===6||this.time_left===0) {
             this.time_left=0;
             this.controller.ban();
             this.draw();
+        }
+        if (this.time_left > 85*1000) {
+            this.hint();
         }
     }
 
@@ -58,5 +61,12 @@ export class GameMap extends AcGameObject {
         this.ctx.font = "70px serif";
         this.ctx.fillStyle = "red";
         this.ctx.fillText('GAME OVER',480,270);
+    }
+
+    hint() {
+        this.ctx.font = "45px serif";
+        this.ctx.fillStyle = "aqua";
+        this.ctx.fillText('玩家一 移动：W A S D  攻击：空格',300,200);
+        this.ctx.fillText('玩家二 移动：↑←↓→ 攻击：1',300,270);
     }
 }
