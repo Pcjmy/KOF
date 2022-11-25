@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "webpack": "webpack",
     "start": "webpack-dev-server --open chrome"
   },
   "author": "",

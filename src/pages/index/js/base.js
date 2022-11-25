@@ -30,7 +30,6 @@ class KOF {
 }
 
 let kof = new KOF('kof');
-
-export {
-    KOF
-}
+setTimeout(()=>{
+    alert('拳皇');
+}, 1000)
