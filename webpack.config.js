@@ -51,7 +51,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           // 小于 10K 的图片转成 base64 编码的 dataURL 字符串写到代码中
-          limit: 10000,
+          limit: 10,
           // 其他的图片转移到
           name: 'images/[name].[ext]',
           esModule: false
